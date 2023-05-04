@@ -10,19 +10,9 @@ from bot.db import users, Flags
 from bot.utils import get_tmp
 from bot import keyboards as kb
 from bot.config import manager
+from bot.utils.is_number_float import is_number_float
 
 router = Router()
-
-
-def is_number_float(el):
-    """ Returns True if string is a number. """
-    try:
-        if "," in el:
-            el = el.replace(",", ".")
-        float(el)
-        return float(el)
-    except ValueError:
-        return False
 
 
 @router.message(States.deposit, lambda message: message.photo is None)

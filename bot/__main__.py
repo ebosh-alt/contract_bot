@@ -1,4 +1,6 @@
 import sys
+
+
 sys.path.append('D:/telegram_bot/contract_bot')
 
 from contextlib import suppress
@@ -8,12 +10,13 @@ import asyncio
 from aiogram import Bot, Dispatcher
 from handlers import routers
 
+from bot.config import api_key
+
 
 async def main() -> None:
     dp = Dispatcher()
     for router in routers:
         dp.include_router(router)
-    api_key = "6233322844:AAGQeeaiwLKmsCE3ZsUjbegj6TsIrdpJSzE"
     bot = Bot(api_key, parse_mode="Markdown")
 
     await dp.start_polling(bot)

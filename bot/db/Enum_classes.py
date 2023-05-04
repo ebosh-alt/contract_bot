@@ -5,6 +5,8 @@ class Flags(Enum):
     NONE = 0
     input_promocode = 1
     awaiting_payment_confirmation = 2
+    awaiting_withdrawal_confirmation = 3
+
 
 
 class Admin_flags(Enum):

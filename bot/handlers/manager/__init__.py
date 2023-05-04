@@ -1,3 +1,4 @@
 from .consideration_application_replenishment import consideration_application_replenishment_router
+from .withdrawal import withdrawal_router
 
-manager_routers = (consideration_application_replenishment_router, )
+manager_routers = (consideration_application_replenishment_router, withdrawal_router)

@@ -37,7 +37,7 @@ async def call_back(call: CallbackQuery, state: FSMContext):
                               text=get_tmp("templates/text_by_payment.md"),
                               reply_markup=kb.payment_method_keyboard)
 
-    elif call.data == "back_main":
+    elif call.data == "back_profile":
         await state.clear()
         amount_of_contracts = sum([int(el[0]) for el in contracts.all_user_contracts(id)])
 

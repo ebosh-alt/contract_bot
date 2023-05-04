@@ -40,7 +40,7 @@ name_button_main_keyboard = ["Инвестиционный счет", "Подд�
 main_keyboard = create_reply_keyboard(name_button_main_keyboard, False, 1, 2, 2)
 back_keyboard = create_reply_keyboard(["Назад"])
 
-keyboard_by_invest = create_reply_keyboard(["🔑Пополнить баланс", "Назад"], one_time_keyboard=True)
+keyboard_by_invest = create_reply_keyboard(["🔑Пополнить баланс", "↩️Вывести средства", "Назад"], one_time_keyboard=True)
 
 statistics_referral_name_button = {
     "Показать 1-ый уровень": "watch_1_lvl",
@@ -57,7 +57,7 @@ payment_method_name_button = {
     "Ethereum ERC-20": "Ethereum ERC-20",
     "FreeKassa": "FreeKassa",
     "В ручном режиме": "В ручном режиме",
-    "Назад": "back_main"
+    "Назад": "back_profile"
 }
 payment_method_keyboard = create_keyboard(payment_method_name_button)
 
@@ -66,6 +66,8 @@ back_to_main_keyboard = create_keyboard({"Назад": "back_main"})
 delete_notification_keyboard = create_keyboard({"Скрыть": "delete_notification"})
 
 back_to_choice_payment = create_keyboard({"Назад": "choice_payment_method"})
+
+back_to_profile_keyboard = create_keyboard({"Назад": "back_profile"})
 
 replenishment_in_manual_mode_keyboard = create_keyboard(
     {"Готово": "ready_transaction", "Назад": "choice_payment_method"})

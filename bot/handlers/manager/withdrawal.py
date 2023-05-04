@@ -10,7 +10,7 @@ router = Router()
 
 
 def check_manager(call: CallbackQuery):
-    if call.from_user.id == manager and call.data.split("_")[0] != "yeswith":
+    if call.from_user.id == manager and call.data.split("_")[0] == "yeswith":
         return True
     return False
 
@@ -21,30 +21,30 @@ async def work_man(call: CallbackQuery):
     if len(data) >= 2:
         id = int(data[1])
         user = users.get(id)
-        if data[0] == "yes":
-            user.balance += float(data[2])
+        if data[0] == "yeswith":
+            user.balance -= float(data[2])
             await AnswerCallbackQuery(callback_query_id=call.id,
-                                      text="Баланс пользователя пополнен",
+                                      text="Деньги с баланса бользователя сняты",
                                       show_alert=True)
             await DeleteMessage(chat_id=manager,
                                 message_id=call.message.message_id)
             await SendMessage(chat_id=id,
-                              text=get_tmp("templates/replenishment_is_successful.md",
+                              text=get_tmp("templates/withdrawal_is_successful.md",
                                            count=float(data[2]), balance=user.balance),
                               reply_markup=kb.delete_notification_keyboard)
             users.update_info(user)
 
-        elif data[0] == "no":
+        elif data[0] == "nowith":
             await AnswerCallbackQuery(callback_query_id=call.id,
                                       text="Заявка отклонена",
                                       show_alert=True)
             await DeleteMessage(chat_id=manager,
                                 message_id=call.message.message_id)
             await SendMessage(chat_id=id,
-                              text=get_tmp("templates/replenishment_is_unsuccessful.md"),
+                              text=get_tmp("templates/withdrawal_is_unsuccessful.md"),
                               reply_markup=kb.delete_notification_keyboard)
         user.flag = Flags.NONE
         users.update_info(user)
 
 
-consideration_application_replenishment_router = router
+withdrawal_router = router
