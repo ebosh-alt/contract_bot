@@ -10,6 +10,7 @@ from bot.db import users, Flags
 from bot.utils import get_tmp
 from bot import keyboards as kb
 from bot.config import manager
+from bot.utils.get_rate import get_rate
 from bot.utils.is_number_float import is_number_float
 
 router = Router()
@@ -74,6 +75,8 @@ async def inp_photo(message: Message, state: FSMContext):
                           reply_markup=kb.main_keyboard)
     await SendPhoto(chat_id=manager,
                     photo=message.photo[0].file_id,
+                    caption=get_tmp("templates/text_by_replenishment_manager.md", fullname=user.username, id=user.id,
+                                    balance=user.balance, amount=data['deposit']),
                     reply_markup=kb.create_keyboard(name_buttons={"Подтвердить": f"yes_{id}_{data['deposit']}",
                                                                   "Отклонить": f"no_{id}"}))
     user.bot_message_id = m.message_id

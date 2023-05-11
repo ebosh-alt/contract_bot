@@ -20,7 +20,7 @@ async def back_main_menu(message: Message):
     users.update_info(user)
 
 
-@router.callback_query(lambda call: call.data in ("back", "choice_payment_method", "back_main"))
+@router.callback_query(lambda call: call.data in ("back", "choice_payment_method", "back_main", "back_profile"))
 async def call_back(call: CallbackQuery, state: FSMContext):
     id = call.from_user.id
     user = users.get(id)

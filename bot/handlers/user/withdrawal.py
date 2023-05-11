@@ -8,6 +8,7 @@ from bot.States import States
 from bot.config import manager
 from bot.db import users, Flags
 from bot.utils import get_tmp
+from bot.utils.get_rate import get_rate
 from bot.utils.is_number_float import is_number_float
 
 router = Router()
@@ -17,6 +18,7 @@ router = Router()
 async def withdrawal(message: Message, state: FSMContext):
     id = message.from_user.id
     user = users.get(id)
+
     m = await SendMessage(chat_id=id,
                           text=get_tmp("templates/withdrawal.md", balance=user.balance),
                           reply_markup=kb.back_to_profile_keyboard)

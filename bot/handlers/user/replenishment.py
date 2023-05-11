@@ -7,7 +7,8 @@ from bot import keyboards as kb
 from bot.States import States
 from bot.db import users, Flags
 from bot.utils import get_tmp
-
+from bot.utils.get_rate import get_rate
+from bot.utils.getPriceCoin import get_price_coin
 router = Router()
 
 
@@ -33,26 +34,40 @@ async def message_main(message: Message):
     users.update_info(user)
 
 
-# {'bot': <aiogram.client.bot.Bot object at 0x000001AE634FC610>, 'storage': <aiogram.fsm.storage.memory.MemoryStorage object at 0x000001AE634FC350>, 'key': StorageKey(bot_id=6233322844, chat_id=686171972, user_id=686171972, destiny='default')}
-
-@router.callback_query(lambda call: call.data in kb.payment_method_name_button.values())
+@router.callback_query(lambda call: call.data in kb.payment_method_name_button.values() and "back" not in call.data)
 async def call_statistic(call: CallbackQuery, state: FSMContext):
     id = call.from_user.id
     user = users.get(id)
-
+    if user.flag is Flags.awaiting_payment_confirmation and call.data == "В ручном режиме":
+        await AnswerCallbackQuery(callback_query_id=call.id,
+                                  text="Вы уже отправили на модерацию платеж. Подождите...",
+                                  show_alert=True)
     if call.data == "В ручном режиме":
-        if user.flag is Flags.awaiting_payment_confirmation:
-            await AnswerCallbackQuery(callback_query_id=call.id,
-                                      text="Вы уже отправили на модерацию платеж. Подождите...",
-                                      show_alert=True)
-        else:
-            await EditMessageText(chat_id=id,
-                                  message_id=user.bot_message_id,
-                                  text=get_tmp("templates/text_by_replenishment_in_manual_mode.md"),
-                                  reply_markup=kb.back_to_choice_payment,
-                                  parse_mode="Markdown")
-            await state.set_state(States.deposit.state)
-    users.update_info(user)
+        await state.set_state(States.deposit.state)
+
+    elif call.data == "YMoney":
+        await state.set_state(States.ymoney.state)
+
+    else:
+        await state.set_state(States.crypto.state)
+        await state.update_data(crypto=call.data)
+        price = get_price_coin(name=call.data)
+        if call.data == "USDT":
+            price = 1.0
+
+        return await EditMessageText(chat_id=id,
+                                     message_id=user.bot_message_id,
+                                     text=get_tmp("templates/text_by_pay_crypto.md",
+                                                  price=price,
+                                                  crypto=call.data),
+                                     reply_markup=kb.back_to_choice_payment,
+                                     parse_mode="Markdown")
+
+    await EditMessageText(chat_id=id,
+                          message_id=user.bot_message_id,
+                          text=get_tmp("templates/text_by_replenishment_in_manual_mode.md", rate=get_rate()),
+                          reply_markup=kb.back_to_choice_payment,
+                          parse_mode="Markdown")
 
 
 replenishment_router = router

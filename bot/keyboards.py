@@ -6,15 +6,29 @@ def create_keyboard(name_buttons: list | dict, *sizes: int) -> types.InlineKeybo
     keyboard = InlineKeyboardBuilder()
 
     for name_button in name_buttons:
-        if type(name_button) is list:
-            keyboard.button(
-                text=name_button, callback_data=name_button
-            )
+        if type(name_buttons[name_button]) is tuple:
+            if len(name_buttons[name_button]) == 2:
+                keyboard.button(
+                    text=name_button, url=name_buttons[name_button][0], callback_data=name_buttons[name_button][1]
+                )
+            else:
+                if "http" in name_buttons[name_button]:
+                    keyboard.button(
+                        text=name_button, url=name_button
+                    )
+                keyboard.button(
+                    text=name_button, callback_data=name_button
+                )
 
         else:
-            keyboard.button(
-                text=name_button, callback_data=name_buttons[name_button]
-            )
+            if "http" in name_buttons[name_button]:
+                keyboard.button(
+                    text=name_button, url=name_buttons[name_button]
+                )
+            else:
+                keyboard.button(
+                    text=name_button, callback_data=name_buttons[name_button]
+                )
     if len(sizes) == 0:
         sizes = (1,)
     keyboard.adjust(*sizes)
@@ -25,9 +39,15 @@ def create_reply_keyboard(name_buttons: list, one_time_keyboard: bool = False, *
     keyboard = ReplyKeyboardBuilder()
 
     for name_button in name_buttons:
-        keyboard.button(
-            text=name_button
-        )
+        if name_button is not tuple:
+            keyboard.button(
+                text=name_button
+            )
+        else:
+            keyboard.button(
+                text=name_button,
+
+            )
     if len(sizes) == 0:
         sizes = (1,)
     keyboard.adjust(*sizes)
@@ -53,9 +73,9 @@ back_to_ref_keyboard = create_keyboard({"Назад": "back"})
 
 payment_method_name_button = {
     "Bitcoin": "Bitcoin",
-    "USDT-TRC20": "USDT-TRC20",
-    "Ethereum ERC-20": "Ethereum ERC-20",
-    "FreeKassa": "FreeKassa",
+    "USDT-TRC20": "USDT",
+    "Ethereum ERC-20": "Ethereum",
+    "YMoney": "YMoney",
     "В ручном режиме": "В ручном режиме",
     "Назад": "back_profile"
 }
@@ -71,3 +91,9 @@ back_to_profile_keyboard = create_keyboard({"Назад": "back_profile"})
 
 replenishment_in_manual_mode_keyboard = create_keyboard(
     {"Готово": "ready_transaction", "Назад": "choice_payment_method"})
+
+ymoney_keyboard = create_keyboard(
+    {"Готово": "ready_ymoney", "Назад": "choice_payment_method"})
+
+if __name__ == "__main__":
+    print(payment_method_name_button.values())
