@@ -13,39 +13,40 @@ async def message_main(message: Message):
     id = message.from_user.id
     user = users.get(id)
     if message.text == "Инвестиционный счет":
-        amount_of_contracts = sum([int(el[0]) for el in contracts.all_user_contracts(id)])
+        amount_of_contracts = sum([int(el[2]) for el in contracts.all_user_contracts(id)])
 
         mess = get_tmp(path="templates/text_by_profile.md", id=id, balance=user.balance,
                        amount_of_contracts=amount_of_contracts, earnings_contract=user.earnings_from_contracts,
                        earnings_referral=user.earnings_from_partners, bonus_account=user.bonus_account)
-        await SendMessage(chat_id=id,
-                          text=mess,
-                          reply_markup=kb.keyboard_by_invest,
-                          parse_mode="Markdown")
+        m = await SendMessage(chat_id=id,
+                              text=mess,
+                              reply_markup=kb.keyboard_by_invest,
+                              parse_mode="Markdown")
 
     elif message.text == "Поддержка":
-        await SendMessage(chat_id=id,
-                          text=get_tmp("templates/text_support.md"),
-                          reply_markup=kb.back_keyboard)
+        m = await SendMessage(chat_id=id,
+                              text=get_tmp("templates/text_support.md"),
+                              reply_markup=kb.back_keyboard)
 
     elif message.text == "Партнерская программа":
         text = get_tmp("templates/text_by_referral.md", referral_link=user.referral_link)
         m = await SendMessage(chat_id=id,
                               text=text,
                               reply_markup=kb.statistics_referral_keyboard)
-        user.bot_message_id = m.message_id
 
     elif message.text == "Ответы на вопросы":
-        await SendMessage(chat_id=id,
-                          text=get_tmp("templates/text_by_faq.md"),
-                          reply_markup=kb.back_keyboard)
+        m = await SendMessage(chat_id=id,
+                              text=get_tmp("templates/text_by_faq.md"),
+                              reply_markup=kb.back_keyboard)
 
-    elif message.text == "Промокоды":
-        await SendMessage(chat_id=id,
-                          text=get_tmp("templates/text_by_promocode.md"),
-                          reply_markup=kb.back_keyboard)
+    # elif message.text == "Промокоды":
+    else:
+        m = await SendMessage(chat_id=id,
+                              text=get_tmp("templates/text_by_promocode.md"),
+                              reply_markup=kb.back_keyboard)
         user.flag = Flags.input_promocode
 
+    user.bot_message_id = m.message_id
     users.update_info(user)
 
 

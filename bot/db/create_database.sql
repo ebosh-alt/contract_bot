@@ -20,7 +20,10 @@ create table contracts(
     count_day integer,
     amount integer,
     user_id integer,
+    procent float,
+    status bool,
+    expiration_date text,
     foreign key(user_id) references users(id)
 );
 
--- drop table users;
+drop table contracts;

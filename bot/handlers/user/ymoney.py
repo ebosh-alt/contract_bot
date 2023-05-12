@@ -1,17 +1,14 @@
-import logging
-
 from aiogram import Router
 from aiogram.fsm.context import FSMContext
-from aiogram.methods import EditMessageText, SendMessage, SendPhoto, DeleteMessage, AnswerCallbackQuery
+from aiogram.methods import EditMessageText, SendMessage, DeleteMessage, AnswerCallbackQuery
 from aiogram.types import CallbackQuery, Message
-from yookassa import Payment, Configuration
 
+from bot import keyboards as kb
 from bot.States import States
 from bot.db import users, Flags
 from bot.utils import get_tmp
-from bot import keyboards as kb
-from bot.utils.YMoney.createPayment import create_pay
 from bot.utils.YMoney.checkPay import check_pay
+from bot.utils.YMoney.createPayment import create_pay
 from bot.utils.get_rate import get_rate
 from bot.utils.is_number_float import is_number_float
 

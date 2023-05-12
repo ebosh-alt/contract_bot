@@ -20,7 +20,8 @@ async def back_main_menu(message: Message):
     users.update_info(user)
 
 
-@router.callback_query(lambda call: call.data in ("back", "choice_payment_method", "back_main", "back_profile"))
+@router.callback_query(lambda call: call.data in ("back", "choice_payment_method", "back_main", "back_profile",
+                                                  "back_to_choice_count_day"))
 async def call_back(call: CallbackQuery, state: FSMContext):
     id = call.from_user.id
     user = users.get(id)
@@ -54,6 +55,11 @@ async def call_back(call: CallbackQuery, state: FSMContext):
 
         user.bot_message_id = m.message_id
         users.update_info(user)
-
+    elif call.data == "back_to_choice_count_day":
+        # await state.clear()
+        await EditMessageText(chat_id=id,
+                              message_id=user.bot_message_id,
+                              text="Выберите на какое количество дней",
+                              reply_markup=kb.count_day_keyboard)
 
 back_router = router

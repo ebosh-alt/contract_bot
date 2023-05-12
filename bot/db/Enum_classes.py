@@ -8,7 +8,6 @@ class Flags(Enum):
     awaiting_withdrawal_confirmation = 3
 
 
-
 class Admin_flags(Enum):
     NONE = 0
     input_user_b = 1

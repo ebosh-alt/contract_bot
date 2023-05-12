@@ -170,9 +170,9 @@ class Sqlite3_Database:
         conn = self.sqlite_connect()
         curs = conn.cursor()
         if value.__class__.__name__ == "int":
-            curs.execute(f'''SELECT {",".join(kwargs.keys())} from {self.table_name} where {field} = {value}''')
+            curs.execute(f'''SELECT {",".join(kwargs.values())} from {self.table_name} where {field} = {value}''')
         else:
-            curs.execute(f'''SELECT {",".join(kwargs.keys())} from {self.table_name} where {field} = "{value}"''')
+            curs.execute(f'''SELECT {",".join(kwargs.values())} from {self.table_name} where {field} = "{value}"''')
 
         answer = curs.fetchall()
         conn.close()

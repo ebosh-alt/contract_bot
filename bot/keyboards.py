@@ -21,7 +21,8 @@ def create_keyboard(name_buttons: list | dict, *sizes: int) -> types.InlineKeybo
                 )
 
         else:
-            if "http" in name_buttons[name_button]:
+
+            if "http" in str(name_buttons[name_button]):
                 keyboard.button(
                     text=name_button, url=name_buttons[name_button]
                 )
@@ -60,7 +61,9 @@ name_button_main_keyboard = ["Инвестиционный счет", "Подд�
 main_keyboard = create_reply_keyboard(name_button_main_keyboard, False, 1, 2, 2)
 back_keyboard = create_reply_keyboard(["Назад"])
 
-keyboard_by_invest = create_reply_keyboard(["🔑Пополнить баланс", "↩️Вывести средства", "Назад"], one_time_keyboard=True)
+keyboard_by_invest = create_reply_keyboard(["Новый контракт", "Мои контракты",
+                                            "🔑Пополнить баланс", "↩️Вывести средства", "Назад"],
+                                           True, 2, 2, 1)
 
 statistics_referral_name_button = {
     "Показать 1-ый уровень": "watch_1_lvl",
@@ -94,6 +97,28 @@ replenishment_in_manual_mode_keyboard = create_keyboard(
 
 ymoney_keyboard = create_keyboard(
     {"Готово": "ready_ymoney", "Назад": "choice_payment_method"})
+
+name_button_count_day = {
+                        "30 дней": "30",
+                        "60 дней": "60",
+                        "90 дней": "90",
+                        "Назад": "back_profile"
+                         }
+count_day_keyboard = create_keyboard(name_button_count_day)
+
+name_button_deposit_contract = {
+    "10$": "10",
+    "100$": "100",
+    "1000$": "1000",
+    "3000$": "3000",
+    "5000$": "5000",
+    "10000$": "10000",
+    "Назад": "back_to_choice_count_day"
+}
+deposit_contract_keyboard = create_keyboard(name_button_deposit_contract, 2, 2, 2, 1)
+
+confirm_deposit_keyboard = create_keyboard({"Подтвердить": "confirm_contract", "Отменить": "back_profile"})
+
 
 if __name__ == "__main__":
     print(payment_method_name_button.values())

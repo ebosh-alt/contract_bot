@@ -6,3 +6,4 @@ class States(StatesGroup):
     withdrawal = State()
     ymoney = State()
     crypto = State()
+    contract = State()
