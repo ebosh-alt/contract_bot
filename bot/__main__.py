@@ -1,6 +1,10 @@
 # from os import getenv
+import asyncio
+from contextlib import suppress
 from typing import Any, Dict, Union
 import sys
+
+from bot.Processing import App
 
 sys.path.append('D:/telegram_bot/contract_bot')
 from aiohttp import web
@@ -77,4 +81,6 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    process = App()
+    with suppress(KeyboardInterrupt):
+        App.start_process(asyncio.run(main()))

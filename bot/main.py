@@ -28,8 +28,6 @@ if __name__ == "__main__":
                         filemode="w",
                         format="%(levelname)s %(asctime)s %(message)s",
                         encoding='utf-8')
+    process = App()
     with suppress(KeyboardInterrupt):
-        App = App()
-        App.start_process(func=App.start_schedule())
-        print(100)
-        asyncio.run(main())
+        App.start_process(asyncio.run(main()))

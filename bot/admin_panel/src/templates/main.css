@@ -1,12 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Admin Panel</title>
-
-</head>
-<style>
-    *{
+*{
     font-family: inherit;
 
 }
@@ -120,55 +112,3 @@
     border-radius: 0.25rem;
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
-</style>
-<body>
-    <main>
-
-        <div class="users">
-            <h1>{{ title }}</h1>
-            {% for user in enumerate(users) %}
-
-                <div class="user">
-                    <span>
-                            <strong class="title">{{ user[1].username }}</strong> <br>
-                            ID: {{ user[1].id}} <br>
-                            Рефферальная ссылка: {{ user[1].referral_link }}<br>
-                            Баланс: {{ user[1].balance }}$<br>
-                            Бонусный счет: {{ user[1].bonus_account }}$<br>
-                            Статус: {{ user[1].status }}
-                    </span>
-
-                </div>
-
-            {% endfor %}
-        </div>
-
-        <div class="_block">
-            <form>
-                <label class="__label">
-                    <input class="__input" name="user_id" type="number" placeholder="Введите user_id которого нужно заблокировать/разблокировать"/>
-                </label>
-            </form>
-        </div>
-
-        <div class="block">
-            <form>
-                <label class="__label">
-                    <input class="__input" name="balance" type="text" placeholder="Введите user_id и сумму изменения баланса"/>
-                </label>
-            </form>
-        </div>
-
-        <div class="block">
-            <form method=POST enctype=multipart/form-data>
-                <label class="__label">
-                    <textarea class="__input_mail" name="message" cols="5" rows="3" placeholder="Введите сообщение"></textarea>
-                </label>
-                <input  class="upload_file" type=file name=file>
-                <input class="send" type=submit value=Отправить>
-            </form>
-        </div>
-
-    </main>
-</body>
-</html>
