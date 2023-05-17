@@ -1,0 +1,114 @@
+*{
+    font-family: inherit;
+
+}
+.users{
+    width: 50%;
+    float: left;
+    margin: 1%;
+
+}
+
+.users h1{
+    text-align: center;
+}
+
+.user{
+    background-color: peachpuff;
+    margin-bottom: 2%;
+    padding: 2%;
+    border-radius: 15px;
+}
+
+.user .title {
+    font-size: 20px;
+
+}
+
+.user span{
+    font-size: 18px;
+    line-height: 25px;
+}
+
+.blocking{
+    width: 40%;
+    float: left;
+    margin-top:6%;
+    margin-left: 10%;
+}
+
+.block {
+    margin-top: 1.5%;
+    width: 40%;
+    float: left;
+}
+._block{
+    margin-top: 6.5%;
+    width: 40%;
+    float: left;
+}
+
+.__label {
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.__input {
+  display: block;
+  width: 100%;
+  height: calc(2.25rem + 2px);
+  padding: 0.375rem 0.75rem;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #212529;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #bdbdbd;
+  border-radius: 0.25rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.upload_file{
+    display: block;
+    width: 50%;
+    margin-top: 1.5%;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    background-color: #fff;
+    background-clip: padding-box;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.send {
+    display: block;
+    width: 50%;
+    margin-top: 1.5%;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    background-color: #fff;
+    background-clip: padding-box;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+.__input_mail{
+    display: block;
+    width: 60%;
+    height: calc(2.25rem + 60px);
+    padding: 0 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #bdbdbd;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}

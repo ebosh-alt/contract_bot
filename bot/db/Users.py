@@ -21,7 +21,6 @@ class User:
             self.bot_message_id: int = kwargs["bot_message_id"]
             self.delete_message_id: int = kwargs["delete_message_id"]
 
-
         else:
             self.username: str = ""
             self.status: bool = True
@@ -63,6 +62,10 @@ class Users(Sqlite3_Database):
         self.del_instance(key)
         self.len -= 1
 
+    def __iter__(self):
+        keys = self.get_keys()
+        for i in keys:
+            yield i
     def get(self, id: int) -> User | bool:
         if id in self:
             obj_tuple = self.get_elem_sqllite3(id)

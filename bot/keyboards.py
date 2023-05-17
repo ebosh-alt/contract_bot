@@ -117,7 +117,7 @@ name_button_deposit_contract = {
 }
 deposit_contract_keyboard = create_keyboard(name_button_deposit_contract, 2, 2, 2, 1)
 
-confirm_deposit_keyboard = create_keyboard({"Подтвердить": "confirm_contract", "Отменить": "back_profile"})
+confirm_deposit_keyboard = create_keyboard({'✅ Заключить контракт': "confirm_contract", "Отменить": "back_profile"})
 
 
 if __name__ == "__main__":

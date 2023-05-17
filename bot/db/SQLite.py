@@ -9,23 +9,23 @@ class Sqlite3_Database:
         # self.args = args
         # a = self.creating_table()
 
-    # def creating_table(self) -> bool:
-    #     if not self.is_file_exist():
-    #         try:
-    #             self.init_sqlite()
-    #             return True
-    #         except Exception as e:
-    #             print(e.__repr__(), e.args)
-    #             return False
-    #     elif not self.is_table_exist():
-    #         try:
-    #             self.init_sqlite()
-    #             return True
-    #         except Exception as e:
-    #             print(e.__repr__(), e.args)
-    #             return False
-    #     else:
-    #         return True
+    def creating_table(self) -> bool:
+        if not self.is_file_exist():
+            try:
+                self.init_sqlite()
+                return True
+            except Exception as e:
+                print(e.__repr__(), e.args)
+                return False
+        elif not self.is_table_exist():
+            try:
+                self.init_sqlite()
+                return True
+            except Exception as e:
+                print(e.__repr__(), e.args)
+                return False
+        else:
+            return True
 
     def sqlite_connect(self) -> sqlite3.Connection:  # Создание подключения к БД
         conn = sqlite3.connect(self.db_file_name, check_same_thread=False)
@@ -40,38 +40,38 @@ class Sqlite3_Database:
         except FileNotFoundError:
             return False
 
-    # def is_table_exist(self) -> bool:
-    #     conn = self.sqlite_connect()
-    #     curs = conn.cursor()
-    #     curs.execute(f'''SELECT EXISTS(SELECT 1 FROM sqlite_master WHERE type="table" AND name="{self.table_name}")''')
-    #     is_exist = curs.fetchone()[0]
-    #     conn.commit()
-    #     conn.close()
-    #     if is_exist:
-    #         return True
-    #     else:
-    #         return False
+    def is_table_exist(self) -> bool:
+        conn = self.sqlite_connect()
+        curs = conn.cursor()
+        curs.execute(f'''SELECT EXISTS(SELECT 1 FROM sqlite_master WHERE type="table" AND name="{self.table_name}")''')
+        is_exist = curs.fetchone()[0]
+        conn.commit()
+        conn.close()
+        if is_exist:
+            return True
+        else:
+            return False
 
-    # def init_sqlite(self) -> None:
-    #     str_for_sql_req = ''
-    #     if len(self.args) != 0:
-    #         count = 1
-    #         for id in self.args:
-    #             if count == 1:
-    #                 str_for_sql_req = str_for_sql_req + id + ' ' + self.args[id] + ' primary id'
-    #             else:
-    #                 str_for_sql_req = str_for_sql_req + id + ' ' + self.args[id]
-    #
-    #             if count != len(self.args):
-    #                 str_for_sql_req += ', '
-    #                 count += 1
-    #     conn = self.sqlite_connect()
-    #     curs = conn.cursor()
-    #     curs.execute(f'''CREATE TABLE {self.table_name} ({str_for_sql_req})''')
-    #     # c.execute(f'''CREATE TABLE {table_name} (id integer primary id, user_id integer, user_name text,
-    #     # user_surname text, username text)''')
-    #     conn.commit()
-    #     conn.close()
+    def init_sqlite(self) -> None:
+        str_for_sql_req = ''
+        if len(self.args) != 0:
+            count = 1
+            for id in self.args:
+                if count == 1:
+                    str_for_sql_req = str_for_sql_req + id + ' ' + self.args[id] + ' primary id'
+                else:
+                    str_for_sql_req = str_for_sql_req + id + ' ' + self.args[id]
+
+                if count != len(self.args):
+                    str_for_sql_req += ', '
+                    count += 1
+        conn = self.sqlite_connect()
+        curs = conn.cursor()
+        curs.execute(f'''CREATE TABLE {self.table_name} ({str_for_sql_req})''')
+        # c.execute(f'''CREATE TABLE {table_name} (id integer primary id, user_id integer, user_name text,
+        # user_surname text, username text)''')
+        conn.commit()
+        conn.close()
 
     def get_elem_sqllite3(self, id: int | str) -> tuple | bool:
         conn = self.sqlite_connect()

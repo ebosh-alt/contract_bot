@@ -19,6 +19,7 @@ async def message_main(message: Message):
                           )
         user.bonus_account += 10
         user.flag = Flags.NONE
+    user.flag = Flags.NONE
     users.update_info(user)
 
 
