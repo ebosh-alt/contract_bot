@@ -123,7 +123,6 @@
 </style>
 <body>
     <main>
-
         <div class="users">
             <h1>{{ title }}</h1>
             {% for user in enumerate(users) %}
@@ -144,27 +143,50 @@
         </div>
 
         <div class="_block">
+            <h3>Изменение статуса пользователя</h3>
             <form>
                 <label class="__label">
-                    <input class="__input" name="user_id" type="number" placeholder="Введите user_id которого нужно заблокировать/разблокировать"/>
+                    <input required class="__input" name="user_id" type="number" placeholder="Введите user_id которого нужно заблокировать/разблокировать"/>
                 </label>
             </form>
         </div>
 
         <div class="block">
+            <h3>Изменение баланса пользователя</h3>
+
             <form>
                 <label class="__label">
-                    <input class="__input" name="balance" type="text" placeholder="Введите user_id и сумму изменения баланса"/>
+                    <input required class="__input" name="balance" type="text" placeholder="Введите user_id и сумму изменения баланса"/>
                 </label>
             </form>
         </div>
 
         <div class="block">
+            <h3>Рассылка по пользователям</h3>
+
             <form method=POST enctype=multipart/form-data>
                 <label class="__label">
                     <textarea class="__input_mail" name="message" cols="5" rows="3" placeholder="Введите сообщение"></textarea>
                 </label>
                 <input  class="upload_file" type=file name=file>
+                <input class="send" type=submit value=Отправить>
+            </form>
+        </div>
+        <div class="block">
+            <h3>Промокоды</h3>
+            <form>
+                <label class="__label">
+                    <input required class="__input" name="name_promocode" type="text" placeholder="Введите название промокода"/>
+                </label>
+                <label>
+                    <input required class="__input" name="count_using" type="number" placeholder="Введите количество использований"/>
+                </label>
+                <label>
+                    <input required class="__input" name="count_day" type="number" placeholder="Введите срок"/>
+                </label>
+                <label>
+                    <input required class="__input" name="amount" type="number" placeholder="Введите сумму"/>
+                </label>
                 <input class="send" type=submit value=Отправить>
             </form>
         </div>

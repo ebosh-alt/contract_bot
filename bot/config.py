@@ -1,5 +1,5 @@
 manager = 5585878927
-api_key = "6233322844:AAGQeeaiwLKmsCE3ZsUjbegj6TsIrdpJSzE"
+api_key = "6233322844:AAGwoXvhOMSVaHN8KFByTJTZkpFMYVbaZCs"
 
 # main jQ7O6UAUu6DYpG0kr2
 # main 7wRPdBkFMYYaZOIasA75MgFGiA6I55pRRjh9

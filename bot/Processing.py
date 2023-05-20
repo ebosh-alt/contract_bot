@@ -19,10 +19,10 @@ class App:
         self.p0.terminate()
 
     @staticmethod
-    async def work():
-        app.run()
+    async def work(dp, bot):
+        await dp.start_polling(bot)
 
-    def start_schedule(self):
-        while True:
-            run(self.work())
-            time.sleep(20)
+    def start_schedule(self, dp, bot):
+        # while True:
+        run(self.work(dp, bot))
+            # time.sleep(20)

@@ -26,4 +26,16 @@ create table contracts(
     foreign key(user_id) references users(id)
 );
 
-drop table contracts;
+create table promocode(
+    id integer primary key ,
+    count_day integer,
+    amount integer,
+    count_using integer,
+    name text,
+    expiration_date text
+);
+create table user_promocode(
+    id integer primary key,
+    name text,
+    user_id integer
+);

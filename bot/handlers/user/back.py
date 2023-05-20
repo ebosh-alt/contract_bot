@@ -2,7 +2,7 @@ from aiogram import Router
 from aiogram.fsm.context import FSMContext
 from aiogram.methods import SendMessage, EditMessageText, DeleteMessage
 from aiogram.types import Message, CallbackQuery
-from bot.db import users, contracts
+from bot.db import users, contracts, Flags
 from bot.utils import get_tmp
 from bot import keyboards as kb
 
@@ -16,6 +16,7 @@ async def back_main_menu(message: Message):
                           text=get_tmp("templates/text_by_menu.md"),
                           reply_markup=kb.main_keyboard)
     user = users.get(id)
+    user.flag = Flags.NONE
     user.bot_message_id = m.message_id
     users.update_info(user)
 
