@@ -1,5 +1,5 @@
 from aiogram import types
-from aiogram.utils.keyboard import InlineKeyboardBuilder, ReplyKeyboardBuilder, ReplyKeyboardMarkup
+from aiogram.utils.keyboard import InlineKeyboardBuilder, ReplyKeyboardBuilder
 
 
 def create_keyboard(name_buttons: list | dict, *sizes: int) -> types.InlineKeyboardMarkup:

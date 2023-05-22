@@ -1,14 +1,14 @@
-import os
 import datetime
 
 from aiogram import Bot
 from aiogram.types import FSInputFile
-from aiohttp import web
-from flask import Flask, request, redirect, flash, url_for
+from flask import Flask, request, redirect
 from werkzeug.utils import secure_filename
+
 from bot.admin_panel.GetTemplate import get_tmp
 from bot.config import api_key
 from bot.db import users, promocodes, Promocode
+from bot.utils.delFolder import del_folder
 from bot.utils.is_number_float import is_number_float
 
 app = Flask(__name__, static_folder="src/css")
@@ -17,7 +17,7 @@ UPLOAD_FOLDER = '/path/to/the/uploads'
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
+# app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
 
 def get_users():
@@ -85,6 +85,7 @@ async def hello():
                 await bot.send_photo(chat_id=id,
                                      caption=message,
                                      photo=photo)
+            del_folder("D:/telegram_bot/contract_bot/bot/admin_panel/photo")
         elif message:
             for id in users:
                 # if id == 686171972:

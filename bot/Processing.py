@@ -1,7 +1,5 @@
-from multiprocessing import Process
 from asyncio import run
-import time
-from bot.admin_panel import app
+from multiprocessing import Process
 
 
 class App:

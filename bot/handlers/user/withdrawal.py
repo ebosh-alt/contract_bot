@@ -8,7 +8,6 @@ from bot.States import States
 from bot.config import manager
 from bot.db import users, Flags
 from bot.utils import get_tmp
-from bot.utils.get_rate import get_rate
 from bot.utils.is_number_float import is_number_float
 
 router = Router()

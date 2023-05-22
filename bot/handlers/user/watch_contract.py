@@ -1,5 +1,5 @@
 from aiogram import Router
-from aiogram.methods import EditMessageText, SendMessage
+from aiogram.methods import SendMessage
 from aiogram.types import Message
 
 from bot import keyboards as kb

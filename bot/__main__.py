@@ -3,6 +3,8 @@ import sys
 from multiprocessing import Process
 
 sys.path.append('D:/telegram_bot/contract_bot')
+from bot.utils.delFolder import del_folder
+
 
 import threading
 from contextlib import suppress
@@ -30,8 +32,10 @@ if __name__ == "__main__":
                         format="%(levelname)s %(asctime)s %(message)s",
                         encoding='utf-8')
     with suppress(KeyboardInterrupt):
-        # asyncio.run(main())
-        # app.run()
+        del_folder("D:/telegram_bot/contract_bot/bot/admin_panel/photo")
+
+        asyncio.run(main())
+        app.run()
         threading.Thread(target=lambda: asyncio.run(main())).start()
         p0 = Process(target=app.run())
         p0.start()

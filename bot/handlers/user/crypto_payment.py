@@ -76,7 +76,7 @@ async def calls(call: CallbackQuery, state: FSMContext):
             await AnswerCallbackQuery(callback_query_id=call.id,
                                       text=get_tmp("templates/error_paid.md"),
                                       show_alert=True)
-    except Exception as ex:
+    except Exception:
         await AnswerCallbackQuery(callback_query_id=call.id,
                                   text=get_tmp("templates/error_paid.md"),
                                   show_alert=True)

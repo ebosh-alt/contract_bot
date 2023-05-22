@@ -5,7 +5,7 @@ from aiogram.methods import SendMessage
 from aiogram.types import Message
 
 from bot import keyboards as kb
-from bot.db import users, Flags, Promocodes, promocodes, UserPromocode, userPromocodes
+from bot.db import users, Flags, promocodes, UserPromocode, userPromocodes
 
 router = Router()
 

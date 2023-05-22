@@ -5,12 +5,11 @@ from aiogram.fsm.context import FSMContext
 from aiogram.methods import EditMessageText, SendMessage, SendPhoto, DeleteMessage
 from aiogram.types import CallbackQuery, Message
 
+from bot import keyboards as kb
 from bot.States import States
+from bot.config import manager
 from bot.db import users, Flags
 from bot.utils import get_tmp
-from bot import keyboards as kb
-from bot.config import manager
-from bot.utils.get_rate import get_rate
 from bot.utils.is_number_float import is_number_float
 
 router = Router()
