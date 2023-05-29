@@ -15,7 +15,10 @@ async def message_main(message: Message):
     id = message.from_user.id
     user = users.get(id)
     promocode = promocodes.get_by_name(name=message.text)
-    if promocode:
+    if user.status is False:
+        await SendMessage(chat_id=id,
+                          text="Вы заблокированы")
+    elif promocode:
         now = datetime.datetime.now()
         promocode_time = datetime.datetime.strptime(promocode.expiration_date, "%d/%m/%Y", )
         if promocode_time <= now or promocode.count_using == 0:

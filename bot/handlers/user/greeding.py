@@ -31,11 +31,15 @@ async def main_menu(message: types.Message):
         add_user(message)
 
     user = users.get(id)
-    m = await SendMessage(chat_id=id,
-                          text=get_tmp("./templates/text_by_menu.md", username=user.username),
-                          reply_markup=kb.main_keyboard)
-    user.bot_message_id = m.message_id
-    users.update_info(user)
+    if user.status is False:
+        await SendMessage(chat_id=id,
+                          text="Вы заблокированы")
+    else:
+        m = await SendMessage(chat_id=id,
+                              text=get_tmp("./templates/text_by_menu.md", username=user.username),
+                              reply_markup=kb.main_keyboard)
+        user.bot_message_id = m.message_id
+        users.update_info(user)
 
 
 start_router = router

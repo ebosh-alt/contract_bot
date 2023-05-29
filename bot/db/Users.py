@@ -62,10 +62,11 @@ class Users(Sqlite3_Database):
         self.del_instance(key)
         self.len -= 1
 
-    def __iter__(self):
+    def __iter__(self) -> User:
         keys = self.get_keys()
-        for i in keys:
-            yield i
+        for id in keys:
+            user = self.get(id)
+            yield user
     def get(self, id: int) -> User | bool:
         if id in self:
             obj_tuple = self.get_elem_sqllite3(id)

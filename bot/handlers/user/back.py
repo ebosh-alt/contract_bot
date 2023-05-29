@@ -22,25 +22,26 @@ async def back_main_menu(message: Message):
 
 
 @router.callback_query(lambda call: call.data in ("back", "choice_payment_method", "back_main", "back_profile",
-                                                  "back_to_choice_count_day"))
+                                                  "back_to_choice_price"))
 async def call_back(call: CallbackQuery, state: FSMContext):
     id = call.from_user.id
     user = users.get(id)
-    if call.data == "back":
+    if user.status is False:
+        await SendMessage(chat_id=id,
+                          text="Вы заблокированы")
+    elif call.data == "back":
         await EditMessageText(chat_id=id,
                               message_id=user.bot_message_id,
                               text=get_tmp("templates/text_by_referral.md", referral_link=user.referral_link),
                               reply_markup=kb.statistics_referral_keyboard)
 
     elif call.data == "choice_payment_method":
-        await state.clear()
         await EditMessageText(chat_id=id,
                               message_id=user.bot_message_id,
                               text=get_tmp("templates/text_by_payment.md"),
                               reply_markup=kb.payment_method_keyboard)
-
     elif call.data == "back_profile":
-        await state.clear()
+
         amount_of_contracts = sum([int(el[0]) for el in contracts.all_user_contracts(id)])
 
         mess = get_tmp(path="templates/text_by_profile.md", id=id, balance=user.balance,
@@ -56,11 +57,12 @@ async def call_back(call: CallbackQuery, state: FSMContext):
 
         user.bot_message_id = m.message_id
         users.update_info(user)
-    elif call.data == "back_to_choice_count_day":
-        # await state.clear()
+
+    elif call.data == "back_to_choice_price":
         await EditMessageText(chat_id=id,
                               message_id=user.bot_message_id,
-                              text="Выберите на какое количество дней",
-                              reply_markup=kb.count_day_keyboard)
+                              text="Выберите сумму",
+                              reply_markup=kb.deposit_contract_keyboard)
+    await state.clear()
 
 back_router = router

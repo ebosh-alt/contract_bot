@@ -18,6 +18,9 @@ router = Router()
 async def ss(message: Message):
     id = message.from_user.id
     user = users.get(id)
+    if user.status is False:
+        await SendMessage(chat_id=id,
+                          text="Вы заблокированы")
     m = await SendMessage(chat_id=id,
                           text="Выберите сумму",
                           reply_markup=kb.deposit_contract_keyboard)
@@ -51,8 +54,6 @@ async def ass(call: CallbackQuery, state: FSMContext):
     await state.update_data(deposit=int(call.data))
 
 
-
-
 @router.callback_query(States.contract,
                        lambda call: call.data in kb.name_button_count_day.values() and "back" not in call.data)
 async def ass(call: CallbackQuery, state: FSMContext):
@@ -81,7 +82,7 @@ async def ass(call: CallbackQuery, state: FSMContext):
     amount = data["deposit"]
     expiration_date = (datetime.datetime.now() + datetime.timedelta(days=count_day)).strftime("%d/%m/%Y")
     procent = procents[count_day][amount]
-    contract = Contract(id=len(contracts)+1,
+    contract = Contract(id=len(contracts) + 1,
                         count_day=count_day,
                         amount=amount,
                         user_id=id,
@@ -110,4 +111,6 @@ async def ass(call: CallbackQuery, state: FSMContext):
     user.bot_message_id = m.message_id
     user.flag = Flags.NONE
     users.update_info(user)
+
+
 new_contact_router = router

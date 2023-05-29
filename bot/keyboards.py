@@ -102,7 +102,7 @@ name_button_count_day = {
                         "30 дней": "30",
                         "60 дней": "60",
                         "90 дней": "90",
-                        "Назад": "back_profile"
+                        "Назад": "back_to_choice_price"
                          }
 count_day_keyboard = create_keyboard(name_button_count_day)
 
@@ -113,7 +113,7 @@ name_button_deposit_contract = {
     "3000$": "3000",
     "5000$": "5000",
     "10000$": "10000",
-    "Назад": "back_to_choice_count_day"
+    "Назад": "back_profile"
 }
 deposit_contract_keyboard = create_keyboard(name_button_deposit_contract, 2, 2, 2, 1)
 

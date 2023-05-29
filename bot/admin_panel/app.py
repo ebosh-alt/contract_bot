@@ -1,12 +1,11 @@
 import datetime
 
-from aiogram import Bot
 from aiogram.types import FSInputFile
 from flask import Flask, request, redirect
 from werkzeug.utils import secure_filename
 
 from bot.admin_panel.GetTemplate import get_tmp
-from bot.config import api_key
+from bot.config import bot
 from bot.db import users, promocodes, Promocode
 from bot.utils.delFolder import del_folder
 from bot.utils.is_number_float import is_number_float
@@ -55,7 +54,7 @@ async def hello():
             users.update_info(user)
         return redirect(request.path)
 
-    elif user_id_amount:
+    elif user_id_amount and " " in user_id_amount:
         user_id, amount = user_id_amount.split(" ")
         user = users.get(int(user_id))
         if user:
@@ -72,7 +71,6 @@ async def hello():
         file = request.files['file']
         if file.filename == '' and message is None:
             return redirect(request.path)
-        bot = Bot(api_key, parse_mode="Markdown")
 
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
@@ -91,6 +89,7 @@ async def hello():
                 # if id == 686171972:
                 await bot.send_message(chat_id=id,
                                        text=message)
+
         return redirect(request.path)
     elif name_promocode and amount and count_using or name_promocode and amount and count_day:
         expiration_date = (datetime.datetime.now() + datetime.timedelta(days=int(count_day))).strftime("%d/%m/%Y")

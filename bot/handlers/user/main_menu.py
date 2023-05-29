@@ -12,7 +12,10 @@ router = Router()
 async def message_main(message: Message):
     id = message.from_user.id
     user = users.get(id)
-    if message.text == "Инвестиционный счет":
+    if user.status is False:
+        await SendMessage(chat_id=id,
+                          text="Вы заблокированы")
+    elif message.text == "Инвестиционный счет":
         amount_of_contracts = sum([int(el[2]) for el in contracts.all_user_contracts(id)])
 
         mess = get_tmp(path="templates/text_by_profile.md", id=id, balance=user.balance,

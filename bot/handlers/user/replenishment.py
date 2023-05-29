@@ -27,11 +27,15 @@ def is_number_float(el):
 async def message_main(message: Message):
     id = message.from_user.id
     user = users.get(id)
-    m = await SendMessage(chat_id=id,
-                          text=get_tmp("templates/text_by_payment.md"),
-                          reply_markup=kb.payment_method_keyboard)
-    user.bot_message_id = m.message_id
-    users.update_info(user)
+    if user.status is False:
+        await SendMessage(chat_id=id,
+                          text="Вы заблокированы")
+    else:
+        m = await SendMessage(chat_id=id,
+                              text=get_tmp("templates/text_by_payment.md"),
+                              reply_markup=kb.payment_method_keyboard)
+        user.bot_message_id = m.message_id
+        users.update_info(user)
 
 
 @router.callback_query(lambda call: call.data in kb.payment_method_name_button.values() and "back" not in call.data)

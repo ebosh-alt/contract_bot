@@ -19,8 +19,10 @@ async def main() -> None:
     for router in routers:
         dp.include_router(router)
     bot = Bot(api_key, parse_mode="Markdown")
-    await dp.start_polling(bot)
-
+    # await dp.start_polling(bot)
+    url = "https://880a-109-252-118-219.ngrok-free.app"
+    result: bool = await bot.set_webhook(url=url)
+    print(result)
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO,
@@ -28,6 +30,8 @@ if __name__ == "__main__":
                         filemode="w",
                         format="%(levelname)s %(asctime)s %(message)s",
                         encoding='utf-8')
-    process = App()
+    # process = App()
+    # process.start_process(process.start_schedule())
     with suppress(KeyboardInterrupt):
-        App.start_process(asyncio.run(main()))
+        asyncio.run(main())
+        # App.start_process(asyncio.run(main()))

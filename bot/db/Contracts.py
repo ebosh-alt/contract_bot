@@ -11,7 +11,7 @@ class Contract:
             self.amount: int = kwargs["amount"]
             self.user_id: int = kwargs["user_id"]
             self.procent: float = kwargs["procent"]
-            self.status: bool = kwargs["status"]
+            self.status: bool = bool(kwargs["status"])
             self.expiration_date: str = kwargs["expiration_date"]
 
         else:
@@ -48,6 +48,12 @@ class Contracts(Sqlite3_Database):
     def __delitem__(self, id):
         self.del_instance(id)
         self.len -= 1
+
+    def __iter__(self) -> Contract:
+        keys = self.get_keys()
+        for id in keys:
+            contract = self.get(id)
+            yield contract
 
     def all_user_contracts(self, id) -> list:
         result = self.get_by_other_field(value=id, field="user_id", attr="*")
