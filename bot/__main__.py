@@ -27,10 +27,13 @@ if __name__ == "__main__":
                         filemode="w",
                         format="%(levelname)s %(asctime)s %(message)s",
                         encoding='utf-8')
+
     with suppress(KeyboardInterrupt):
 
-        interest_calculation = Interest_calculation()
-        interest_calculation.start_process(func=interest_calculation.start_schedule)
-        threading.Thread(target=lambda: app.run(host=host, port=port)).start()
-        p0 = Process(target=asyncio.run(main()))
-        p0.start()
+        asyncio.run(main())
+        # interest_calculation = Interest_calculation()
+        # interest_calculation.start_process(func=interest_calculation.start_schedule)
+        # threading.Thread(target=lambda: app.run(host=host, port=port)).start()
+        # p0 = Process(target=asyncio.run(main()))
+        # p0.start()
+

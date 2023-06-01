@@ -121,11 +121,18 @@ class Users(Sqlite3_Database):
     def get_ref_3_lvl(self, id: int):
         ref_2_lvl = self.get_ref_2_lvl(id)[1]
         ref_3_lvl_username = []
+        ref_3_lvl_keys = []
 
         for id in ref_2_lvl:
             ref_3_lvl_username.append(self.get_ref_1_lvl(id)[0])
         result = []
+        keys = []
         for el in range(len(ref_3_lvl_username)):
             for i in ref_3_lvl_username[el]:
                 result.append(i)
-        return result
+
+        for el in range(len(ref_3_lvl_keys)):
+            for i in ref_3_lvl_keys[el]:
+                keys.append(i)
+
+        return result, keys

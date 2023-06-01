@@ -14,16 +14,19 @@ async def call_statistic(call: CallbackQuery):
     user = users.get(id)
 
     if call.data == "watch_1_lvl":
+        lvl = 1
         bosses = users.get_ref_1_lvl(id)[0]
     elif call.data == "watch_2_lvl":
+        lvl = 2
         bosses = users.get_ref_2_lvl(id)[0]
-
     else:
-        bosses = users.get_ref_3_lvl(id)
+        lvl = 3
+        bosses = users.get_ref_3_lvl(id)[0]
     temp = "\n".join(bosses)
+
     if len(bosses) == 0:
         await AnswerCallbackQuery(callback_query_id=call.id,
-                                  text=get_tmp("templates/no_referral.md"),
+                                  text=get_tmp("templates/no_referral.md", lvl=lvl) ,
                                   show_alert=True)
     else:
         await EditMessageText(chat_id=id,

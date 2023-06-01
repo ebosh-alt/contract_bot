@@ -49,4 +49,9 @@ class DEPOSIT(Enum):
     dep_10000 = 10000
 
 
+Referral_procent = {
+    "1_lvl": 0.3,
+    "2_lvl": 0.2,
+    "3_lvl": 0.1
+}
 

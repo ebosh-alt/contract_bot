@@ -1,25 +1,23 @@
 import asyncio
-
-from aiogram import Bot
-from schedule import every, repeat, run_pending
+import datetime
 import time
 from multiprocessing import Process
 
-from bot.utils import get_tmp
-from bot.config import api_key
-from bot.db import users, User, contracts, Contract
-from bot.const import procents
-import datetime
+from schedule import every, repeat, run_pending
+
 from bot.config import bot
+from bot.const import procents
+from bot.db import users, contracts
+from bot.utils import get_tmp
 
 
 async def send(id: int, id_contract: int, amount: float):
     txt = f"На Ваш счет начислено **{amount}$** за контракт **#{id_contract}**!"
     await bot.send_message(chat_id=id,
-                           text=txt)
+                           text=get_tmp("./templates/contract.md"))
 
 
-@repeat(every().day)
+@repeat(every().second)
 def interest_calculation():
     for contract in contracts:
         if contract.status is True:
@@ -61,6 +59,7 @@ class Interest_calculation:
         while True:
             self.work()
             time.sleep(60*60*4)
+            # time.sleep(1)
 
 
 if __name__ == "__main__":
